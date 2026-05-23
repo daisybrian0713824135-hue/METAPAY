@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/lib/auth";
 import NotFound from "@/pages/not-found";
+import Landing from "@/pages/landing";
 
 import Login from "@/pages/auth/login";
 import Register from "@/pages/auth/register";
@@ -59,9 +60,8 @@ function Router() {
     <Switch>
       <Route path="/" component={() => {
         const [, setLocation] = useLocation();
-        if (user) setLocation("/dashboard");
-        else setLocation("/login");
-        return null;
+        if (user) { setLocation("/dashboard"); return null; }
+        return <Landing />;
       }} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
