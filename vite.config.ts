@@ -8,7 +8,7 @@ import path from "path";
 export default defineConfig({
   plugins: [
     react(),
-    miaodaDevPlugin(),
+    process.env.NODE_ENV !== "production" && miaodaDevPlugin(),
     svgr({
       svgrOptions: {
         icon: true,
@@ -16,10 +16,17 @@ export default defineConfig({
         namedExport: "ReactComponent",
       },
     }),
-  ],
+  ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+  },
+  server: {
+    middlewareMode: false,
   },
 });
